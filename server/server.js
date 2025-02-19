@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const connection = require('./db'); // Załaduj konfigurację bazy danych
+const connection = require('./database'); // Załaduj konfigurację bazy danych
 
 app.use(bodyParser.json());
 
