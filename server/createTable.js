@@ -1,25 +1,19 @@
 const mysql = require('mysql2/promise');
 
-async function createTable() {
+async function createConnection() {
     const connection = await mysql.createConnection({
         host: 'turntable.proxy.rlwy.net',
         user: 'root',
         password: 'ILkwVgUborPXccRSCImBgxohCGsZQXdf',
         database: 'railway',
-        port: 19067
+        port: 19067,
+        authPlugins: {
+            mysql_clear_password: () => () => Buffer.from('ILkwVgUborPXccRSCImBgxohCGsZQXdf')
+        }
     });
 
-    await connection.execute(`
-        CREATE TABLE users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL UNIQUE,
-            password VARCHAR(255) NOT NULL
-        )
-    `);
-
-    console.log('Tabela utworzona!');
+    console.log('Połączenie udane!');
     await connection.end();
 }
 
-createTable();
+createConnection();
